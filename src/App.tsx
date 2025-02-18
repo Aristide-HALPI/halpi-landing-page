@@ -23,6 +23,7 @@ function App() {
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
+  const [isOnDarkBackground, setIsOnDarkBackground] = useState(false);
 
   const languages = {
     fr: { name: 'Français', flag: '🇫🇷' },
@@ -477,6 +478,52 @@ function App() {
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  useEffect(() => {
+    const checkBackground = () => {
+      const sections = document.querySelectorAll('section');
+      const languageButton = document.querySelector('.language-button');
+      
+      if (languageButton) {
+        const buttonRect = languageButton.getBoundingClientRect();
+        const buttonCenter = {
+          x: buttonRect.left + buttonRect.width / 2,
+          y: buttonRect.top + buttonRect.height / 2
+        };
+
+        for (const section of sections) {
+          const sectionRect = section.getBoundingClientRect();
+          if (
+            buttonCenter.y >= sectionRect.top &&
+            buttonCenter.y <= sectionRect.bottom
+          ) {
+            const computedStyle = window.getComputedStyle(section);
+            const backgroundColor = computedStyle.backgroundColor;
+            const background = computedStyle.background;
+            
+            // Vérifie si c'est un fond sombre soit par la couleur directe soit par le gradient
+            const isDark = 
+              backgroundColor.includes('rgb(26, 34, 37)') || // Fond uni sombre
+              backgroundColor.includes('#1A2225') ||
+              background.includes('rgb(26, 34, 37)') || // Gradient sombre
+              background.includes('#1A2225') ||
+              background.includes('from-[#1A2225]') ||
+              section.classList.contains('bg-gradient-to-br') && (
+                section.classList.toString().includes('from-[#1A2225]') ||
+                section.classList.toString().includes('to-[#2A3235]')
+              );
+            
+            setIsOnDarkBackground(isDark);
+            break;
+          }
+        }
+      }
+    };
+
+    checkBackground();
+    window.addEventListener('scroll', checkBackground);
+    return () => window.removeEventListener('scroll', checkBackground);
+  }, []);
+
   return (
     <div className="w-full bg-dark-900">
       {/* Language Selector */}
@@ -484,7 +531,11 @@ function App() {
         <div className="relative">
           <button
             onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-            className="flex items-center space-x-2 px-4 py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors"
+            className={`language-button flex items-center space-x-2 px-4 py-3 transition-colors ${
+              isOnDarkBackground 
+                ? 'bg-white/20 hover:bg-white/30 text-white' 
+                : 'bg-[#bd8c0f]/10 hover:bg-[#bd8c0f]/20 text-[#1A2225]'
+            } rounded-lg font-medium`}
           >
             <span className="text-lg">{languages[currentLanguage].flag}</span>
             <span>{languages[currentLanguage].name}</span>
@@ -493,7 +544,11 @@ function App() {
 
           {/* Language Menu */}
           {isLanguageMenuOpen && (
-            <div className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className={`absolute right-0 mt-2 rounded-lg shadow-lg overflow-hidden ${
+              isOnDarkBackground 
+                ? 'bg-[#1A2225]/95 backdrop-blur-sm border border-white/10' 
+                : 'bg-white/95 backdrop-blur-sm border border-[#bd8c0f]/10'
+            }`}>
               {Object.entries(languages).map(([key, value]) => (
                 <button
                   key={key}
@@ -501,7 +556,11 @@ function App() {
                     setCurrentLanguage(key as LanguageKey);
                     setIsLanguageMenuOpen(false);
                   }}
-                  className="flex items-center space-x-2 w-full px-4 py-2 hover:bg-gray-100 text-gray-700"
+                  className={`flex items-center space-x-2 w-full px-4 py-2 transition-colors ${
+                    isOnDarkBackground
+                      ? 'text-white hover:bg-white/10'
+                      : 'text-[#1A2225] hover:bg-[#bd8c0f]/10'
+                  } font-medium`}
                 >
                   <span className="text-lg">{value.flag}</span>
                   <span>{value.name}</span>
@@ -513,21 +572,24 @@ function App() {
       </div>
 
       {/* Hero Section */}
-      <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[#1A2225] to-[#2A3235]">
+      <section className="min-h-screen relative overflow-hidden bg-gradient-to-tr from-gray-50 via-[#f5f3eb] to-[#faf6e9]">
         {/* Cercles décoratifs */}
-        <div className="absolute top-20 right-20 w-96 h-96 rounded-full bg-[#bd8c0f]/10 blur-3xl hidden md:block"></div>
-        <div className="absolute bottom-20 left-20 w-64 h-64 rounded-full bg-[#bd8c0f]/5 blur-2xl hidden md:block"></div>
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-gradient-to-b from-[#bd8c0f]/5 to-[#bd8c0f]/20 blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-t from-[#bd8c0f]/10 to-[#bd8c0f]/5 blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+        
+        {/* Effet de grain subtil */}
+        <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+')]"></div>
         
         <div className="container mx-auto px-4 py-12 md:py-24 relative">
           <div className="flex flex-col md:flex-row items-center max-w-5xl mx-auto">
             <div className="flex-1 md:pr-8 text-center md:text-left">
               {/* Titre principal */}
               <div className="space-y-6 md:space-y-8">
-                <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-none tracking-tight">
+                <h1 className="text-4xl md:text-6xl font-extrabold text-black leading-none tracking-tight">
                   H<span className="text-[#bd8c0f]">A</span>LP<span className="text-[#bd8c0f]">I</span>
                 </h1>
                 <div className="space-y-2 md:space-y-3">
-                  <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight tracking-tight md:whitespace-nowrap">
+                  <h2 className="text-3xl md:text-5xl font-extrabold text-black leading-tight tracking-tight md:whitespace-nowrap">
                     {translations[currentLanguage].hero.title}
                   </h2>
                   <h2 className="text-3xl md:text-5xl font-extrabold text-[#bd8c0f] leading-tight tracking-tight">
@@ -537,7 +599,7 @@ function App() {
                 
                 {/* Animation des bénéfices */}
                 <div className="mt-4">
-                  <p className="text-lg md:text-xl text-white">
+                  <p className="text-lg md:text-xl text-black">
                     {translations[currentLanguage].hero.withHalpi}{" "}
                     <TypeAnimation
                       key={currentLanguage} 
@@ -632,9 +694,9 @@ function App() {
       </section>
 
       {/* Le chemin vers la réussite */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[#1A2225] to-[#2A3235]">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-8 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-16">
             {translations[currentLanguage].path.title}
           </h2>
           <div className="max-w-7xl mx-auto">
@@ -646,7 +708,7 @@ function App() {
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.2 }}
-                      className="bg-white rounded-lg p-6 md:p-8 h-full flex flex-col items-center text-center shadow-lg"
+                      className="bg-[#fdf6e6] rounded-lg p-6 md:p-8 h-full flex flex-col items-center text-center shadow-lg"
                     >
                       <h3 className="text-xl md:text-2xl font-bold text-[#1A2225] mb-4 md:mb-6 min-h-[48px] md:min-h-[64px] flex items-center justify-center">
                         {item.title}
@@ -758,12 +820,22 @@ function App() {
       </section>
 
       {/* Section CTA */}
-      <section className="bg-[#1A2225] py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold text-white mb-4">
+      <section className="relative py-20 overflow-hidden">
+        {/* Fond avec gradient */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#faf6e9] via-[#f7f0d8] to-[#fdf6e6]"></div>
+        
+        {/* Cercles décoratifs */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-gradient-to-b from-[#bd8c0f]/10 to-[#bd8c0f]/25 blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-t from-[#bd8c0f]/15 to-[#bd8c0f]/10 blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+        
+        {/* Effet de grain subtil */}
+        <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+')]"></div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-5xl font-bold text-[#1A2225] mb-4">
             {translations[currentLanguage].cta.title}
           </h2>
-          <p className="text-base text-white text-2xl mb-8">
+          <p className="text-base text-[#1A2225] text-2xl mb-8">
             {translations[currentLanguage].cta.description}
           </p>
           <button className="px-8 py-4 bg-[#bd8c0f] text-white text-lg font-semibold rounded-lg hover:bg-[#bd8c0f]/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
@@ -773,30 +845,34 @@ function App() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-6 bg-white">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-5xl font-bold mb-8 text-center">
+          <h2 className="text-4xl font-bold mb-10 text-center text-[#1A2225]">
             {translations[currentLanguage].faq.title}
           </h2>
-          <div className="max-w-5xl mx-auto space-y-8">
+          <div className="max-w-3xl mx-auto space-y-3">
             {translations[currentLanguage].faq.items.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-sm border border-gray-100"
+                className="bg-[#faf6e9] rounded-lg overflow-hidden border border-[#bd8c0f]/10"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full px-5 py-3 flex items-center justify-between hover:bg-[#bd8c0f]/5 transition-colors"
                 >
-                  <span className="text-lg font-semibold text-gray-900">{faq.question}</span>
-                  <ChevronDown className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === index ? 'rotate-180' : ''}`} />
+                  <span className="text-base font-semibold text-[#1A2225] text-left">{faq.question}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 text-[#bd8c0f] transform transition-transform ${
+                      openFaq === index ? 'rotate-180' : ''
+                    }`} 
+                  />
                 </button>
                 {openFaq === index && (
-                  <div className="px-6 pb-4">
-                    <p className="text-base text-gray-600">{faq.answer}</p>
+                  <div className="px-5 pb-3 pt-1">
+                    <p className="text-sm text-[#1A2225]/80 leading-relaxed">{faq.answer}</p>
                   </div>
                 )}
               </motion.div>
