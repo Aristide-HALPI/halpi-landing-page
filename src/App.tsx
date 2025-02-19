@@ -645,13 +645,13 @@ function App() {
       </section>
 
       {/* Section Coach Personnel */}
-      <section className="bg-[#bd8c0f] py-12 md:py-16">
+      <section className="bg-[#bd8c0f] py-8 md:py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-white">
               {translations[currentLanguage].coach.title}
             </h2>
-            <div className="space-y-4 md:space-y-6">
+            <div className="space-y-3 md:space-y-4">
               <p className="text-xl md:text-2xl leading-relaxed text-white">
                 {translations[currentLanguage].coach.description1.split(':')[0]}:<br className="hidden md:block" />
                 {translations[currentLanguage].coach.description1.split(':')[1].trim()}
@@ -666,12 +666,12 @@ function App() {
       </section>
 
       {/* Section Benefits */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-12">
             {translations[currentLanguage].benefits.title}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {translations[currentLanguage].benefits.items.map((benefit, index) => (
               <div key={index} className="flex flex-col items-center h-full">
                 <div className="w-16 h-16 bg-[#fdf6e6] rounded-full flex items-center justify-center mb-4">
@@ -693,40 +693,8 @@ function App() {
         </div>
       </section>
 
-      {/* Le chemin vers la réussite */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-16">
-            {translations[currentLanguage].path.title}
-          </h2>
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-              {translations[currentLanguage].path.steps.map((item, index) => (
-                <div key={index} className="relative">
-                  <div className="flex flex-col h-full">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.2 }}
-                      className="bg-[#fdf6e6] rounded-lg p-6 md:p-8 h-full flex flex-col items-center text-center shadow-lg"
-                    >
-                      <h3 className="text-xl md:text-2xl font-bold text-[#1A2225] mb-4 md:mb-6 min-h-[48px] md:min-h-[64px] flex items-center justify-center">
-                        {item.title}
-                      </h3>
-                      <p className="text-base text-[#1A2225]/80 leading-relaxed flex-grow">
-                        {item.content}
-                      </p>
-                    </motion.div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Section Carousel */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="pt-0 pb-12 md:pt-0 md:pb-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-12">
             {translations[currentLanguage].benefits.sectionTitle}
@@ -764,20 +732,20 @@ function App() {
           </div>
 
           {/* Carousel Container */}
-          <div className="relative max-w-[105%] mx-auto px-16 py-4">
+          <div className="relative max-w-[85%] mx-auto py-4">
             {/* Navigation Buttons */}
             <button 
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50"
+              className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-white shadow-xl hover:bg-[#fdf6e6] border-2 border-[#bd8c0f] transition-all duration-200"
             >
-              <ChevronLeft className="w-6 h-6 text-[#bd8c0f]" />
+              <ChevronLeft className="w-5 h-5 text-[#bd8c0f]" />
             </button>
             
             <button 
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-50"
+              className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 p-2.5 rounded-full bg-white shadow-xl hover:bg-[#fdf6e6] border-2 border-[#bd8c0f] transition-all duration-200"
             >
-              <ChevronRight className="w-6 h-6 text-[#bd8c0f]" />
+              <ChevronRight className="w-5 h-5 text-[#bd8c0f]" />
             </button>
 
             {/* Carousel Cards */}
@@ -819,8 +787,40 @@ function App() {
         </div>
       </section>
 
+      {/* Le chemin vers la réussite */}
+      <section className="pt-0 pb-16 md:pt-0 md:pb-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-16">
+            {translations[currentLanguage].path.title}
+          </h2>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              {translations[currentLanguage].path.steps.map((item, index) => (
+                <div key={index} className="relative">
+                  <div className="flex flex-col h-full">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.2 }}
+                      className="bg-[#fdf6e6] rounded-lg p-6 md:p-8 h-full flex flex-col items-center text-center shadow-lg"
+                    >
+                      <h3 className="text-xl md:text-2xl font-bold text-[#1A2225] mb-4 md:mb-6 min-h-[48px] md:min-h-[64px] flex items-center justify-center">
+                        {item.title}
+                      </h3>
+                      <p className="text-base text-[#1A2225]/80 leading-relaxed flex-grow">
+                        {item.content}
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Section CTA */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 md:py-16 overflow-hidden">
         {/* Fond avec gradient */}
         <div className="absolute inset-0 bg-gradient-to-tr from-[#faf6e9] via-[#f7f0d8] to-[#fdf6e6]"></div>
         
@@ -832,10 +832,10 @@ function App() {
         <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC41Ii8+PC9zdmc+')]"></div>
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-5xl font-bold text-[#1A2225] mb-4">
+          <h2 className="text-4xl font-bold text-[#1A2225] mb-3">
             {translations[currentLanguage].cta.title}
           </h2>
-          <p className="text-base text-[#1A2225] text-2xl mb-8">
+          <p className="text-base text-[#1A2225] text-xl mb-6">
             {translations[currentLanguage].cta.description}
           </p>
           <button className="px-8 py-4 bg-[#bd8c0f] text-white text-lg font-semibold rounded-lg hover:bg-[#bd8c0f]/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
