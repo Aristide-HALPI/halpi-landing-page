@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
+import studentImage from './assets/20250401_1708_Téléphone Amélioré Transparent_remix_01jqryaxq5f6y867mmvcnetaf5.png';
 
 function App() {
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
@@ -635,9 +636,9 @@ function App() {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  src="/20250401_1708_Téléphone Amélioré Transparent_remix_01jqryaxq5f6y867mmvcnetaf5.png"
+                  src={studentImage}
                   alt="Student studying with HALPI"
-                  className="max-w-[460px] sm:max-w-[345px] md:max-w-[570px] w-auto h-auto object-contain mix-blend-multiply"
+                  className="max-w-[460px] sm:max-w-[345px] md:max-w-[570px] w-auto h-auto object-contain"
                   loading="eager"
                 />
               </div>
