@@ -620,22 +620,24 @@ function App() {
                 transition={{ delay: 0.5 }}
                 className="mt-8 md:mt-10"
               >
-                <button className="px-6 py-3 bg-[#bd8c0f] text-white text-base font-semibold rounded-lg hover:bg-[#bd8c0f]/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <button 
+                  onClick={() => window.open('https://tally.so/r/w5VOYv', '_blank')} 
+                  className="px-6 py-3 bg-[#bd8c0f] text-white text-base font-semibold rounded-lg hover:bg-[#bd8c0f]/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                   {translations[currentLanguage].hero.cta}
                 </button>
               </motion.div>
             </div>
 
             {/* Image à droite */}
-            <div className="flex w-full md:w-[600px] items-center justify-center md:justify-end pl-0 md:pl-8 mt-8 md:mt-0">
-              <div className="transform scale-90 sm:scale-75 md:scale-90">
+            <div className="flex w-full md:w-[600px] items-center justify-start md:justify-start pl-0 md:pl-8 mt-8 md:mt-0">
+              <div className="transform scale-90 sm:scale-75 md:scale-90 -ml-8">
                 <motion.img
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
-                  src="/ttt-removebg-preview.png"
+                  src="/20250401_1708_Téléphone Amélioré Transparent_remix_01jqryaxq5f6y867mmvcnetaf5.png"
                   alt="Student studying with HALPI"
-                  className="max-w-[400px] sm:max-w-[300px] md:max-w-[495px] w-auto h-auto object-contain"
+                  className="max-w-[460px] sm:max-w-[345px] md:max-w-[570px] w-auto h-auto object-contain"
                   loading="eager"
                 />
               </div>
@@ -838,7 +840,9 @@ function App() {
           <p className="text-base text-[#1A2225] text-xl mb-6">
             {translations[currentLanguage].cta.description}
           </p>
-          <button className="px-8 py-4 bg-[#bd8c0f] text-white text-lg font-semibold rounded-lg hover:bg-[#bd8c0f]/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+          <button 
+            onClick={() => window.open('https://tally.so/r/w5VOYv', '_blank')} 
+            className="px-8 py-4 bg-[#bd8c0f] text-white text-lg font-semibold rounded-lg hover:bg-[#bd8c0f]/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             {translations[currentLanguage].cta.button}
           </button>
         </div>
