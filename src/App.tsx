@@ -637,7 +637,7 @@ function App() {
                   transition={{ delay: 0.3, duration: 0.8 }}
                   src="/20250401_1708_Téléphone Amélioré Transparent_remix_01jqryaxq5f6y867mmvcnetaf5.png"
                   alt="Student studying with HALPI"
-                  className="max-w-[460px] sm:max-w-[345px] md:max-w-[570px] w-auto h-auto object-contain"
+                  className="max-w-[460px] sm:max-w-[345px] md:max-w-[570px] w-auto h-auto object-contain mix-blend-multiply"
                   loading="eager"
                 />
               </div>
