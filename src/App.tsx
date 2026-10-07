@@ -125,7 +125,7 @@ function App() {
         items: [
           { name: "Fil Rouge", text: "Un outil pour les enseignants du primaire." },
           { name: "CE1D", text: "La préparation au CE1D, avec une première version à tester prévue prochainement." },
-          { name: "Détective Lecteur", text: "Des carnets de lecture avec exercices pour les jeunes lecteurs. Premier carnet en phase de test." }
+          { name: "Détective Lecteur", text: "Une collection par année du primaire, avec quatre tomes par collection (maths, français, sciences-géographie-histoire, néerlandais). La première collection, pour la 4e primaire, est en cours de test dans une école de devoirs. Objectif : lancer les six collections à la rentrée 2027." }
         ]
       },
       faq: {
@@ -256,7 +256,7 @@ function App() {
         items: [
           { name: "Fil Rouge", text: "A tool for primary school teachers." },
           { name: "CE1D", text: "Preparation for the CE1D exam, with a first version to test coming soon." },
-          { name: "Détective Lecteur", text: "Reading booklets with exercises for young readers. First booklet in testing phase." }
+          { name: "Détective Lecteur", text: "One collection per primary school year, with four volumes each (maths, French, science-geography-history, Dutch). The first collection, for 4th grade, is being tested in a homework school. Goal: launch all six collections in September 2027." }
         ]
       },
       faq: {
@@ -387,7 +387,7 @@ function App() {
         items: [
           { name: "Fil Rouge", text: "Een tool voor leerkrachten in het basisonderwijs." },
           { name: "CE1D", text: "Voorbereiding op de CE1D, met binnenkort een eerste testversie." },
-          { name: "Détective Lecteur", text: "Leesboekjes met oefeningen voor jonge lezers. Eerste boekje in testfase." }
+          { name: "Détective Lecteur", text: "Een reeks per leerjaar van het lager onderwijs, elk met vier boekjes (wiskunde, Frans, wereldoriëntatie, Nederlands). De eerste reeks, voor het 4e leerjaar, wordt getest in een huiswerkschool. Doel: alle zes reeksen lanceren in september 2027." }
         ]
       },
       faq: {
