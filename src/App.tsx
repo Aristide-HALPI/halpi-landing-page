@@ -119,6 +119,15 @@ function App() {
           }
         ]
       },
+      universe: {
+        title: "HALPI, c'est aussi…",
+        description: "HALPI veut dire « Help AI » : l'IA au service de l'éducation. En parallèle de HALPI pour le supérieur, je développe d'autres outils pour l'enseignement en Belgique. Ils sont tous en cours de développement.",
+        items: [
+          { name: "Fil Rouge", text: "Un outil pour les enseignants du primaire." },
+          { name: "CE1D", text: "La préparation au CE1D, avec une première version à tester prévue prochainement." },
+          { name: "Détective Lecteur", text: "Des carnets de lecture avec exercices pour les jeunes lecteurs. Premier carnet en phase de test." }
+        ]
+      },
       faq: {
         title: "Foire aux questions",
         items: [
@@ -241,6 +250,15 @@ function App() {
           }
         ]
       },
+      universe: {
+        title: "HALPI is also…",
+        description: "HALPI stands for \"Help AI\": AI serving education. Alongside HALPI for higher education, I am building other tools for schools in Belgium. All of them are still in development.",
+        items: [
+          { name: "Fil Rouge", text: "A tool for primary school teachers." },
+          { name: "CE1D", text: "Preparation for the CE1D exam, with a first version to test coming soon." },
+          { name: "Détective Lecteur", text: "Reading booklets with exercises for young readers. First booklet in testing phase." }
+        ]
+      },
       faq: {
         title: "Frequently Asked Questions",
         items: [
@@ -361,6 +379,15 @@ function App() {
             keyword: "BESCHIKBAAR",
             icon: "Clock"
           }
+        ]
+      },
+      universe: {
+        title: "HALPI is ook…",
+        description: "HALPI staat voor \"Help AI\": AI in dienst van onderwijs. Naast HALPI voor het hoger onderwijs ontwikkel ik andere tools voor het onderwijs in België. Ze zijn allemaal nog in ontwikkeling.",
+        items: [
+          { name: "Fil Rouge", text: "Een tool voor leerkrachten in het basisonderwijs." },
+          { name: "CE1D", text: "Voorbereiding op de CE1D, met binnenkort een eerste testversie." },
+          { name: "Détective Lecteur", text: "Leesboekjes met oefeningen voor jonge lezers. Eerste boekje in testfase." }
         ]
       },
       faq: {
@@ -881,6 +908,26 @@ function App() {
                   </div>
                 )}
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Univers HALPI */}
+      <section className="py-12 bg-[#faf6e9]">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="text-3xl font-bold mb-4 text-[#1A2225]">
+            {translations[currentLanguage].universe.title}
+          </h2>
+          <p className="text-base text-[#1A2225]/80 mb-8 leading-relaxed">
+            {translations[currentLanguage].universe.description}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {translations[currentLanguage].universe.items.map((item, index) => (
+              <div key={index} className="bg-white rounded-lg p-5 border border-[#bd8c0f]/10 text-left">
+                <h3 className="text-lg font-bold text-[#1A2225] mb-2">{item.name}</h3>
+                <p className="text-sm text-[#1A2225]/80 leading-relaxed">{item.text}</p>
+              </div>
             ))}
           </div>
         </div>
